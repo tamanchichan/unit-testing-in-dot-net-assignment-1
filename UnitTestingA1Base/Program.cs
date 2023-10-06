@@ -10,8 +10,7 @@ app.UseHttpsRedirection();
 
 // Application Storage persists for single session
 AppStorage appStorage = new AppStorage();
-
-
+BusinessLogicLayer bll = new BusinessLogicLayer(appStorage);
 
 #endregion
 
@@ -33,9 +32,18 @@ AppStorage appStorage = new AppStorage();
 ///<summary>
 /// Returns a HashSet of all Recipes that contain the specified Ingredient by name or Primary Key
 /// </summary>
-app.MapGet("/recipes/byIngredient", (string name, int id) =>
+app.MapGet("/recipes/byIngredient", (string? name, int? id) =>
 {
-
+    try
+    {
+        HashSet<Recipe> recipes = bll.GetRecipesByIngredients(id, name);
+        
+        return Results.Ok(recipes);
+    }
+    catch (Exception ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
 });
 
 ///<summary>
@@ -68,7 +76,7 @@ app.MapGet("/recipes", (string name, int id) =>
 /// All IDs should be created for these objects using the returned value of the AppStorage.GeneratePrimaryKey() method
 /// </summary>
 app.MapPost("/recipes", () => {
-
+    appStorage.RecipeIngredients.Add(new RecipeIngredient { RecipeId = 10, IngredientId = 1 });
 });
 
 ///<summary>
