@@ -41,6 +41,15 @@ namespace UnitTestingA1Base.Data
                         throw new ArgumentOutOfRangeException(nameof(ingredient));
                     }
                 }
+                else
+                {
+                    ingredient = _appStorage.Ingredients.FirstOrDefault(i => i.Id == id && i.Name == name);
+
+                    if (ingredient == null)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(ingredient));
+                    }
+                }
 
                 recipeIngredients = _appStorage.RecipeIngredients
                     .Where(rI => rI.IngredientId == ingredient.Id)
@@ -89,6 +98,15 @@ namespace UnitTestingA1Base.Data
                 else if (id == null & !String.IsNullOrEmpty(name))
                 {
                     dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Name == name);
+
+                    if (dietaryRestriction == null)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(dietaryRestriction));
+                    }
+                }
+                else
+                {
+                    dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Id == id && dR.Name == name);
 
                     if (dietaryRestriction == null)
                     {
