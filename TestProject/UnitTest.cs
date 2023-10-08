@@ -56,5 +56,19 @@ namespace TestProject
             });
 
         }
+
+        [TestMethod]
+        public void GetRecipesByIngredient_InvalidName_ThrowsArgumentNullException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            string ingredientName = "Banana";
+
+            // act and assert
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByIngredients(null, ingredientName);
+            });
+        }
     }
 }
