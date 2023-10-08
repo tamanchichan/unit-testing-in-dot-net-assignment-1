@@ -186,5 +186,18 @@ namespace TestProject
                 HashSet<Recipe> recipes = bll.GetRecipesByDietary(null, dietaryName);
             });
         }
+
+        [TestMethod]
+        public void GetRecipesByDietary_NullParameters_ThrowsArgumentNullException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+
+            // act and assert
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByDietary(null, null);
+            });
+        }
     }
 }
