@@ -43,8 +43,17 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void GetRecipesByIngredient_InvalidId_ReturnsNull()
+        public void GetRecipesByIngredient_InvalidId_ThrowsArgumentNullException()
         {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int ingredientId = 20;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByIngredients(ingredientId, null);
+            });
 
         }
     }
