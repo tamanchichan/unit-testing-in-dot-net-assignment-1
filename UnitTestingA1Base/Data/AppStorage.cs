@@ -145,11 +145,10 @@ namespace UnitTestingA1Base.Data
                     Id = 5,
                     Name = "Lactose-Free"
                 },
-                // testing recipes returns null/empty
-                new DietaryRestriction
+                new DietaryRestriction // catch null/empty Recipe
                 {
-                    Id = 6,
-                    Name = "Test"
+                    Id = 1111,
+                    Name = "Test Dietary"
                 }
             };
 
@@ -389,8 +388,8 @@ namespace UnitTestingA1Base.Data
                 },
                 new IngredientRestriction
                 {
-                    DietaryRestrictionId = 6,
-                    IngredientId = 11
+                    DietaryRestrictionId = 1111,
+                    IngredientId = 1111
                 }
             };
         }

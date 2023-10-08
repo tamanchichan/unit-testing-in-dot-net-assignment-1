@@ -158,5 +158,33 @@ namespace TestProject
             int actualResult = recipes.Count();
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void GetRecipesByDietary_InvalidId_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int dietaryId = 0;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByDietary(dietaryId, null);
+            });
+        }
+
+        [TestMethod]
+        public void GetRecipesByDietary_InvalidName_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            string dietaryName = "Invalid Name";
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByDietary(null, dietaryName);
+            });
+        }
     }
 }
