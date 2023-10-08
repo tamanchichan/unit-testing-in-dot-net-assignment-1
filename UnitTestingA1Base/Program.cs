@@ -32,7 +32,7 @@ BusinessLogicLayer bll = new BusinessLogicLayer(appStorage);
 ///<summary>
 /// Returns a HashSet of all Recipes that contain the specified Ingredient by name or Primary Key
 /// </summary>
-app.MapGet("/recipes/byIngredient", (string? name, int? id) =>
+app.MapGet("/recipes/byIngredient", (int? id, string? name) =>
 {
     try
     {
@@ -76,7 +76,7 @@ app.MapGet("/recipes", (string name, int id) =>
 /// All IDs should be created for these objects using the returned value of the AppStorage.GeneratePrimaryKey() method
 /// </summary>
 app.MapPost("/recipes", () => {
-    appStorage.RecipeIngredients.Add(new RecipeIngredient { RecipeId = 10, IngredientId = 1 });
+    //appStorage.RecipeIngredients.Add(new RecipeIngredient { RecipeId = 10, IngredientId = 1 });
 });
 
 ///<summary>

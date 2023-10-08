@@ -16,11 +16,11 @@ namespace TestProject
         {
             // arrange
             BusinessLogicLayer bll = _initializeBusinessLogic();
-            int ingridientId = 6;
+            int ingredientId = 6;
             int recipeCount = 2;
 
             // act
-            HashSet<Recipe> recipes = bll.GetRecipesByIngredients(ingridientId, null);
+            HashSet<Recipe> recipes = bll.GetRecipesByIngredients(ingredientId, null);
 
             // assert
             //Assert.IsNotNull(recipes);
@@ -30,7 +30,16 @@ namespace TestProject
         [TestMethod]
         public void GetRecipesByIngredient_ValidName_ReturnsRecipesWithIngredient()
         {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            string ingredientName = "Parmesan Cheese";
+            int recipeIngredientCount = 2;
 
+            // act
+            HashSet<Recipe> recipes = bll.GetRecipesByIngredients(null, ingredientName);
+
+            // assert
+            Assert.AreEqual(recipeIngredientCount, recipes.Count());
         }
 
         [TestMethod]

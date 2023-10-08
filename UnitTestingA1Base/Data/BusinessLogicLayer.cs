@@ -13,16 +13,38 @@ namespace UnitTestingA1Base.Data
 
         public HashSet<Recipe> GetRecipesByIngredients(int? id, string? name)
         {
-            Ingredient ingredient;
+            Ingredient ingredient = null;
             HashSet<Recipe> recipes = new HashSet<Recipe>();
 
-            if (id != null)
+            if (id == null && name == null)
             {
-                ingredient = _appStorage.Ingredients.First(i => i.Id == id);
+                throw new ArgumentNullException(nameof(id), nameof(name));
+            }
+            else
+            {
+                if (id != null && String.IsNullOrEmpty(name))
+                {
+                    ingredient = _appStorage.Ingredients.First(i => i.Id == id);
+                }
+                else if (id == null && !String.IsNullOrEmpty(name))
+                {
+                    ingredient = _appStorage.Ingredients.FirstOrDefault(i => i.Name == name);
+                }
 
-                HashSet<RecipeIngredient> recipeIngredients = _appStorage.RecipeIngredients.Where(rI => rI.IngredientId == ingredient.Id).ToHashSet();
+                if (ingredient == null)
+                {
+                    throw new ArgumentNullException(nameof(ingredient));
+                }
+                else
+                {
+                    HashSet<RecipeIngredient> recipeIngredients = _appStorage.RecipeIngredients
+                        .Where(rI => rI.IngredientId == ingredient.Id)
+                        .ToHashSet();
 
-                recipes = _appStorage.Recipes.Where(r => recipeIngredients.Any(rI => rI.RecipeId == r.Id)).ToHashSet();
+                    recipes = _appStorage.Recipes
+                        .Where(r => recipeIngredients.Any(rI => rI.RecipeId == r.Id))
+                        .ToHashSet();
+                }
             }
 
             return recipes;
