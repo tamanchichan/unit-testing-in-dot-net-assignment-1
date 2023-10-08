@@ -15,6 +15,7 @@ namespace UnitTestingA1Base.Data
         {
             Ingredient ingredient = null;
             HashSet<Recipe> recipes = new HashSet<Recipe>();
+            HashSet<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
 
             if (id == null && name == null)
             {
@@ -41,13 +42,23 @@ namespace UnitTestingA1Base.Data
                     }
                 }
 
-                HashSet<RecipeIngredient> recipeIngredients = _appStorage.RecipeIngredients
+                recipeIngredients = _appStorage.RecipeIngredients
                     .Where(rI => rI.IngredientId == ingredient.Id)
                     .ToHashSet();
+
+                if (recipeIngredients == null)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(recipeIngredients));
+                }
 
                 recipes = _appStorage.Recipes
                     .Where(r => recipeIngredients.Any(rI => rI.RecipeId == r.Id))
                     .ToHashSet();
+
+                if (recipes == null || recipes.Count == 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(recipes));
+                }
             }
 
             return recipes;
@@ -72,12 +83,17 @@ namespace UnitTestingA1Base.Data
 
                     if (dietaryRestriction == null)
                     {
-                        throw new ArgumentNullException(nameof(dietaryRestriction));
+                        throw new ArgumentOutOfRangeException(nameof(dietaryRestriction));
                     }
                 }
                 else if (id == null & !String.IsNullOrEmpty(name))
                 {
                     dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Name == name);
+
+                    if (dietaryRestriction == null)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(dietaryRestriction));
+                    }
                 }
 
                 ingredientRestrictions = _appStorage.IngredientRestrictions
