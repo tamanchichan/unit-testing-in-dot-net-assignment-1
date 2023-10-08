@@ -40,6 +40,10 @@ app.MapGet("/recipes/byIngredient", (int? id, string? name) =>
         
         return Results.Ok(recipes);
     }
+    catch (ArgumentNullException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
     catch (Exception ex)
     {
         return Results.NotFound(ex.Message);

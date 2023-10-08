@@ -18,7 +18,7 @@ namespace UnitTestingA1Base.Data
 
             if (id == null && name == null)
             {
-                throw new ArgumentNullException(nameof(id), nameof(name));
+                throw new ArgumentNullException($"Both {nameof(id)} and {nameof(name)} are null.");
             }
             else
             {
