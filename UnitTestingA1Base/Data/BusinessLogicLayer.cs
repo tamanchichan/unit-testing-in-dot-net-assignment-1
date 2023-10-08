@@ -46,7 +46,7 @@ namespace UnitTestingA1Base.Data
                     .Where(rI => rI.IngredientId == ingredient.Id)
                     .ToHashSet();
 
-                if (recipeIngredients == null)
+                if (recipeIngredients == null || recipeIngredients.Count == 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(recipeIngredients));
                 }

@@ -72,7 +72,7 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void GetRecipesByIngredien_NullParameters_ThrowsArgumentNullException()
+        public void GetRecipesByIngredient_NullParameters_ThrowsArgumentNullException()
         {
             // arrange
             BusinessLogicLayer bll = _initializeBusinessLogic();
@@ -81,6 +81,34 @@ namespace TestProject
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 HashSet<Recipe> recipes = bll.GetRecipesByIngredients(null, null);
+            });
+        }
+
+        [TestMethod] // have Ingredient, but doesn't have RecipeIngredient
+        public void GetRecipesByIngredient_RecipeIngredientNullOrEmpty_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int ingredientId = 1111;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByIngredients(ingredientId, null);
+            });
+        }
+
+        [TestMethod] // have Ingredient and RecipeIngredient, but doesn't have Recipe
+        public void GetRecipesByIngredient_RecipeNullOrEmpty_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int ingredientId = 2222;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByIngredients(ingredientId, null);
             });
         }
 
