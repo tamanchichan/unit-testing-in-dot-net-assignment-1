@@ -53,9 +53,26 @@ app.MapGet("/recipes/byIngredient", (int? id, string? name) =>
 ///<summary>
 /// Returns a HashSet of all Recipes that only contain ingredients that belong to the Dietary Restriction provided by name or Primary Key
 /// </summary>
-app.MapGet("/recipes/byDiet", (string name, int id) =>
+app.MapGet("/recipes/byDiet", (int? id, string? name) =>
 {
+    try
+    {
+        HashSet<Recipe> recipes = bll.GetRecipesByDietary(id, name);
 
+        return Results.Ok(recipes);
+    }
+    catch (ArgumentNullException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (ArgumentOutOfRangeException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (Exception ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
 });
 
 ///<summary>

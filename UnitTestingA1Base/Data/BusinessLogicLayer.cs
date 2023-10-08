@@ -52,5 +52,63 @@ namespace UnitTestingA1Base.Data
 
             return recipes;
         }
+
+        public HashSet<Recipe> GetRecipesByDietary(int? id, string? name)
+        {
+            DietaryRestriction dietaryRestriction = null;
+            HashSet<IngredientRestriction> ingredientRestrictions = new HashSet<IngredientRestriction>();
+            HashSet<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
+            HashSet<Recipe> recipes = new HashSet<Recipe>();
+
+            if (id == null && name == null)
+            {
+                throw new ArgumentNullException($"Both {nameof(id)} and {nameof(name)} are null.");
+            }
+            else
+            {
+                if (id != null && String.IsNullOrEmpty(name))
+                {
+                    dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Id == id);
+
+                    if (dietaryRestriction == null)
+                    {
+                        throw new ArgumentNullException(nameof(dietaryRestriction));
+                    }
+                }
+                else if (id == null & !String.IsNullOrEmpty(name))
+                {
+                    dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Name == name);
+                }
+
+                ingredientRestrictions = _appStorage.IngredientRestrictions
+                    .Where(iR => iR.DietaryRestrictionId == dietaryRestriction.Id)
+                    .ToHashSet();
+
+                if (ingredientRestrictions == null)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(ingredientRestrictions));
+                }
+
+                recipeIngredients = _appStorage.RecipeIngredients
+                    .Where(rI => ingredientRestrictions.Any(iR => iR.IngredientId == rI.IngredientId))
+                    .ToHashSet();
+
+                if (recipeIngredients == null)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(recipeIngredients));
+                }
+
+                recipes = _appStorage.Recipes
+                    .Where(r => recipeIngredients.Any(rI => rI.RecipeId == r.Id))
+                    .ToHashSet();
+
+                if (recipes == null || recipes.Count == 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(recipes));
+                }
+            }
+
+            return recipes;
+        }
     }
 }

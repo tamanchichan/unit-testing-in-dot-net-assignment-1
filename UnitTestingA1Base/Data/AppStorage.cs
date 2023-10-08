@@ -97,12 +97,13 @@ namespace UnitTestingA1Base.Data
                 Servings = 4
             },
             new Recipe
-        {
-            Id = 11,
-            Name = "Vegetable Stir Fry",
-            Description = "Quick and healthy stir fry with assorted vegetables.",
-            Servings = 4
-        }, new Recipe {
+            {
+                Id = 11,
+                Name = "Vegetable Stir Fry",
+                Description = "Quick and healthy stir fry with assorted vegetables.",
+                Servings = 4
+            },
+            new Recipe {
                 Id = 12,
                 Name = "Grilled Salmon",
                 Description = "Delicious grilled salmon fillet with lemon and herbs.",
@@ -136,6 +137,11 @@ namespace UnitTestingA1Base.Data
             {
                 Id = 5,
                 Name = "Lactose-Free"
+            },
+            new DietaryRestriction
+            {
+                Id = 6,
+                Name = "Test"
             }
         };
 
@@ -190,6 +196,11 @@ namespace UnitTestingA1Base.Data
             {
                 Id = 10,
                 Name = "Cucumbers"
+            },
+            new Ingredient
+            {
+                Id = 1999,
+                Name = "Test Ingredient"
             }
         };
 
@@ -294,6 +305,13 @@ namespace UnitTestingA1Base.Data
                 RecipeId = 11,
                 Amount = 3,
                 MeasurementUnit = MeasurementUnit.Milliletres
+            },
+            new RecipeIngredient
+            {
+                IngredientId = 1999,
+                RecipeId = 1999,
+                Amount = 1999,
+                MeasurementUnit = MeasurementUnit.Grams
             }
 
         };
@@ -349,6 +367,11 @@ namespace UnitTestingA1Base.Data
             {
                 DietaryRestrictionId = 5,
                 IngredientId = 10
+            },
+            new IngredientRestriction
+            {
+                DietaryRestrictionId = 6,
+                IngredientId = 1999
             }
         };
 

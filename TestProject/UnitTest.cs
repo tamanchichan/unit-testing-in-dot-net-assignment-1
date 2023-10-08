@@ -70,5 +70,21 @@ namespace TestProject
                 HashSet<Recipe> recipes = bll.GetRecipesByIngredients(null, ingredientName);
             });
         }
+
+        [TestMethod]
+        public void GetRecipesByDietary_ValidId_ReturnsRecipesWithDietary()
+        {
+            // arange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int dietaryId = 1;
+
+            // act
+            HashSet<Recipe> recipes = bll.GetRecipesByDietary(dietaryId, null);
+
+            // assert
+            int expectedResult = 3;
+            int actualResult = recipes.Count();
+            Assert.AreEqual(expectedResult, actualResult);
+        }
     }
 }
