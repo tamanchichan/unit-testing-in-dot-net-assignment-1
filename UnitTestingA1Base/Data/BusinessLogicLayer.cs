@@ -28,7 +28,7 @@ namespace UnitTestingA1Base.Data
 
                     if (ingredient == null)
                     {
-                        throw new ArgumentNullException(nameof(ingredient));
+                        throw new ArgumentOutOfRangeException(nameof(ingredient));
                     }
                 }
                 else if (id == null && !String.IsNullOrEmpty(name))
@@ -37,7 +37,7 @@ namespace UnitTestingA1Base.Data
 
                     if (ingredient == null)
                     {
-                        throw new ArgumentNullException(nameof(ingredient));
+                        throw new ArgumentOutOfRangeException(nameof(ingredient));
                     }
                 }
 

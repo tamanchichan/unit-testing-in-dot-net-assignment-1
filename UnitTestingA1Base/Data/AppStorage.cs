@@ -138,6 +138,7 @@ namespace UnitTestingA1Base.Data
                 Id = 5,
                 Name = "Lactose-Free"
             },
+            // testing recipes returns null/empty
             new DietaryRestriction
             {
                 Id = 6,
@@ -199,7 +200,7 @@ namespace UnitTestingA1Base.Data
             },
             new Ingredient
             {
-                Id = 1999,
+                Id = 11,
                 Name = "Test Ingredient"
             }
         };
@@ -308,74 +309,72 @@ namespace UnitTestingA1Base.Data
             },
             new RecipeIngredient
             {
-                IngredientId = 1999,
-                RecipeId = 1999,
-                Amount = 1999,
+                IngredientId = 10,
+                RecipeId = 13,
+                Amount = 10,
                 MeasurementUnit = MeasurementUnit.Grams
             }
 
         };
 
             IngredientRestrictions = new HashSet<IngredientRestriction>
-        {
-            new IngredientRestriction
             {
-                DietaryRestrictionId = 1,
-                IngredientId = 2
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 2,
-                IngredientId = 4
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 3,
-                IngredientId = 1
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 4,
-                IngredientId = 3
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 5,
-                IngredientId = 5
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 1,
-                IngredientId = 7
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 2,
-                IngredientId = 9
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 3,
-                IngredientId = 6
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 4,
-                IngredientId = 8
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 5,
-                IngredientId = 10
-            },
-            new IngredientRestriction
-            {
-                DietaryRestrictionId = 6,
-                IngredientId = 1999
-            }
-        };
-
-
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 1,
+                    IngredientId = 2
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 2,
+                    IngredientId = 4
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 3,
+                    IngredientId = 1
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 4,
+                    IngredientId = 3
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 5,
+                    IngredientId = 5
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 1,
+                    IngredientId = 7
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 2,
+                    IngredientId = 9
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 3,
+                    IngredientId = 6
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 4,
+                    IngredientId = 8
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 5,
+                    IngredientId = 10
+                },
+                new IngredientRestriction
+                {
+                    DietaryRestrictionId = 6,
+                    IngredientId = 11
+                }
+            };
         }
     }
 }
