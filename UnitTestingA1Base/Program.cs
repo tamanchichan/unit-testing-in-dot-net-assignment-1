@@ -44,6 +44,14 @@ app.MapGet("/recipes/byIngredient", (int? id, string? name) =>
     {
         return Results.NotFound(ex.Message);
     }
+    catch (ArgumentOutOfRangeException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return Results.Problem(ex.Message);
+    }
     catch (Exception ex)
     {
         return Results.NotFound(ex.Message);
@@ -68,6 +76,10 @@ app.MapGet("/recipes/byDiet", (int? id, string? name) =>
     catch (ArgumentOutOfRangeException ex)
     {
         return Results.NotFound(ex.Message);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return Results.Problem(ex.Message);
     }
     catch (Exception ex)
     {

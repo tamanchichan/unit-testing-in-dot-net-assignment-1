@@ -84,6 +84,21 @@ namespace TestProject
             });
         }
 
+        [TestMethod] // existing Id and Name, but no sequence found, mismatch/inalid parameter
+        public void GetRecipesByIngredient_InvalidParameters_ThrowsInvalidOperationException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int ingredientId = 1;
+            string ingredientName = "Eggs";
+
+            // act and assert
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByIngredients(ingredientId, ingredientName);
+            });
+        }
+
         [TestMethod] // have Ingredient, but doesn't have RecipeIngredient
         public void GetRecipesByIngredient_RecipeIngredientNullOrEmpty_ThrowsArgumentOutOfRangeException()
         {

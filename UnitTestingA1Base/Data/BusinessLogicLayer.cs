@@ -47,7 +47,7 @@ namespace UnitTestingA1Base.Data
 
                     if (ingredient == null)
                     {
-                        throw new ArgumentOutOfRangeException(nameof(ingredient));
+                        throw new InvalidOperationException(nameof(ingredient));
                     }
                 }
 
@@ -110,7 +110,7 @@ namespace UnitTestingA1Base.Data
 
                     if (dietaryRestriction == null)
                     {
-                        throw new ArgumentOutOfRangeException(nameof(dietaryRestriction));
+                        throw new InvalidOperationException(nameof(dietaryRestriction));
                     }
                 }
 
