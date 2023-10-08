@@ -86,5 +86,21 @@ namespace TestProject
             int actualResult = recipes.Count();
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void GetRecipesByDietary_ValidName_ReturnsRecipesWithDietary()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            string dietaryName = "Vegetarian";
+
+            // act
+            HashSet<Recipe> recipes = bll.GetRecipesByDietary(null, dietaryName);
+
+            // assert
+            int expectedResult = 3;
+            int actualResult = recipes.Count();
+            Assert.AreEqual(expectedResult, actualResult);
+        }
     }
 }
