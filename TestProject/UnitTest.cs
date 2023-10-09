@@ -307,6 +307,20 @@ namespace TestProject
                 HashSet<Recipe> recipes = bll.GetRecipes(recipeId, null);
             });
         }
+
+        [TestMethod]
+        public void GetRecipes_InvalidName_ThrowsArgumentOutOfRange()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            string recipeName = "Invalid Name";
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipes(null, recipeName);
+            });
+        }
         #endregion
     }
 }
