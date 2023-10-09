@@ -260,5 +260,23 @@ namespace TestProject
             });
         }
         #endregion
+
+        #region GetRecipes
+        [TestMethod]
+        public void GetRecipes_ValidId_ReturnsRecipes()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int recipeId = 1;
+
+            // act
+            HashSet<Recipe> recipes = bll.GetRecipes(recipeId, null);
+
+            // assert
+            int expectedResult = 1;
+            int actualResult = recipes.Count();
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+        #endregion
     }
 }
