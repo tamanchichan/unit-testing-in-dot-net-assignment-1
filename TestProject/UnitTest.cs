@@ -277,6 +277,22 @@ namespace TestProject
             int actualResult = recipes.Count();
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void GetRecipes_ValidName_ReturnsRecipes()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            string recipeName = "Salmon";
+
+            // act
+            HashSet<Recipe> recipes = bll.GetRecipes(null, recipeName);
+
+            // assert
+            int expectedResult = 2;
+            int actualResult = recipes.Count();
+            Assert.AreEqual(expectedResult, actualResult);
+        }
         #endregion
     }
 }
