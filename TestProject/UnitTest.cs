@@ -321,6 +321,21 @@ namespace TestProject
                 HashSet<Recipe> recipes = bll.GetRecipes(null, recipeName);
             });
         }
+
+        [TestMethod]
+        public void GetRecipes_InvalidParameters_ThrowsArgumentOutOfRange()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int recipeId = 1;
+            string recipeName = "Chicken Alfredo";
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipes(recipeId, recipeName);
+            });
+        }
         #endregion
     }
 }

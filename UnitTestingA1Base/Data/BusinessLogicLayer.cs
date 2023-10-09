@@ -171,6 +171,15 @@ namespace UnitTestingA1Base.Data
                     throw new ArgumentOutOfRangeException(nameof(recipes));
                 }
             }
+            else
+            {
+                recipes = _appStorage.Recipes.Where(r => r.Id == id && r.Name.Contains(name)).ToHashSet();
+
+                if (recipes == null || recipes.Count == 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(recipes));
+                }
+            }
 
             return recipes;
         }
