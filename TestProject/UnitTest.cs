@@ -199,5 +199,20 @@ namespace TestProject
                 HashSet<Recipe> recipes = bll.GetRecipesByDietary(null, null);
             });
         }
+
+        [TestMethod]
+        public void GetRecipesByDietary_InvalidParameters_ThrowsInvalidOperationException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int dietaryId = 1;
+            string dietaryName = "Vegan";
+
+            // act and assert
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByDietary(dietaryId, dietaryName);
+            });
+        }
     }
 }
