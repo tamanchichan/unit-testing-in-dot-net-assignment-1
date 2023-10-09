@@ -323,6 +323,19 @@ namespace TestProject
         }
 
         [TestMethod]
+        public void GetRecipes_NullParameters_ThrowsArgumentNullException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+
+            // act and assert
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipes(null, null);
+            });
+        }
+
+        [TestMethod]
         public void GetRecipes_InvalidParameters_ThrowsArgumentOutOfRange()
         {
             // arrange
