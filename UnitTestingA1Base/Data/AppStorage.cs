@@ -146,17 +146,17 @@ namespace UnitTestingA1Base.Data
                     Id = 5,
                     Name = "Lactose-Free"
                 },
-                new DietaryRestriction // catch null/empty Recipe
+                new DietaryRestriction // catch null/empty IngredientRestrictions
                 {
                     Id = 1111,
                     Name = "Test Dietary"
                 },
-                new DietaryRestriction // catch null/empty IngredientRestrictions
+                new DietaryRestriction // catch null/empty RecipeIngredients
                 {
                     Id = 2222,
                     Name = "Test Dietary"
                 },
-                new DietaryRestriction
+                new DietaryRestriction // catch null/empty Recipe
                 {
                     Id = 3333,
                     Name = "Test Dietary"
@@ -335,6 +335,13 @@ namespace UnitTestingA1Base.Data
                     RecipeId = 13,
                     Amount = 10,
                     MeasurementUnit = MeasurementUnit.Grams
+                },
+                new RecipeIngredient // catch null/empty Recipe
+                {
+                    IngredientId = 2222,
+                    RecipeId = 0,
+                    Amount = 1,
+                    MeasurementUnit = MeasurementUnit.Grams
                 }
             };
 
@@ -390,10 +397,15 @@ namespace UnitTestingA1Base.Data
                     DietaryRestrictionId = 5,
                     IngredientId = 10
                 },
-                new IngredientRestriction
+                new IngredientRestriction // catch null/empty RecipeIngredients
                 {
                     DietaryRestrictionId = 2222,
                     IngredientId = 0
+                },
+                new IngredientRestriction // catch null/empty Recipe
+                {
+                    DietaryRestrictionId = 3333,
+                    IngredientId = 2222
                 }
             };
         }

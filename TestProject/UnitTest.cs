@@ -233,11 +233,25 @@ namespace TestProject
         }
 
         [TestMethod] // have DietaryRestrictions and IngredientRestrictions, but doesn't have RecipeIngredients
-        public void GetRecipesByDietary_RecipIngredientsNullOrEmpty_ThrowsArgumentOutOfRangeException()
+        public void GetRecipesByDietary_RecipeIngredientsNullOrEmpty_ThrowsArgumentOutOfRangeException()
         {
             // arrange
             BusinessLogicLayer bll = _initializeBusinessLogic();
             int dietaryId = 2222;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByDietary(dietaryId, null);
+            });
+        }
+
+        [TestMethod] // have DietaryRestrictions, IngredientRestrictions and RecipeIngredients, but doesn't have Recipe
+        public void GetRecipesByDietary_RecipeNullOrEmpty_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int dietaryId = 3333;
 
             // act and assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
