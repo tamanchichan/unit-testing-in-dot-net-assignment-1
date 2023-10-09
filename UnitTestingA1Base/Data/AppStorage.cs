@@ -150,6 +150,16 @@ namespace UnitTestingA1Base.Data
                 {
                     Id = 1111,
                     Name = "Test Dietary"
+                },
+                new DietaryRestriction // catch null/empty IngredientRestrictions
+                {
+                    Id = 2222,
+                    Name = "Test Dietary"
+                },
+                new DietaryRestriction
+                {
+                    Id = 3333,
+                    Name = "Test Dietary"
                 }
             };
 
@@ -325,13 +335,6 @@ namespace UnitTestingA1Base.Data
                     RecipeId = 13,
                     Amount = 10,
                     MeasurementUnit = MeasurementUnit.Grams
-                },
-                new RecipeIngredient
-                {
-                    IngredientId = 2222,
-                    RecipeId = 0,
-                    Amount = 1,
-                    MeasurementUnit = MeasurementUnit.Grams
                 }
             };
 
@@ -389,8 +392,8 @@ namespace UnitTestingA1Base.Data
                 },
                 new IngredientRestriction
                 {
-                    DietaryRestrictionId = 1111,
-                    IngredientId = 1111
+                    DietaryRestrictionId = 2222,
+                    IngredientId = 0
                 }
             };
         }

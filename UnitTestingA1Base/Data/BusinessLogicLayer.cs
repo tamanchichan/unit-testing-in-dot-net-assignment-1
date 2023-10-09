@@ -118,7 +118,7 @@ namespace UnitTestingA1Base.Data
                     .Where(iR => iR.DietaryRestrictionId == dietaryRestriction.Id)
                     .ToHashSet();
 
-                if (ingredientRestrictions == null)
+                if (ingredientRestrictions == null || ingredientRestrictions.Count == 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(ingredientRestrictions));
                 }
@@ -127,7 +127,7 @@ namespace UnitTestingA1Base.Data
                     .Where(rI => ingredientRestrictions.Any(iR => iR.IngredientId == rI.IngredientId))
                     .ToHashSet();
 
-                if (recipeIngredients == null)
+                if (recipeIngredients == null || recipeIngredients.Count == 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(recipeIngredients));
                 }

@@ -11,6 +11,7 @@ namespace TestProject
             return new BusinessLogicLayer(new AppStorage());
         }
 
+        #region GetRecipesByIngredient
         [TestMethod]
         public void GetRecipesByIngredient_ValidId_ReturnsRecipesWithIngredient()
         {
@@ -126,7 +127,9 @@ namespace TestProject
                 HashSet<Recipe> recipes = bll.GetRecipesByIngredients(ingredientId, null);
             });
         }
+        #endregion
 
+        #region GetRecipesByDietary
         [TestMethod]
         public void GetRecipesByDietary_ValidId_ReturnsRecipesWithDietary()
         {
@@ -200,7 +203,7 @@ namespace TestProject
             });
         }
 
-        [TestMethod]
+        [TestMethod] // existing Id and Name, but no sequence found, mismatch/invalid parameter
         public void GetRecipesByDietary_InvalidParameters_ThrowsInvalidOperationException()
         {
             // arrange
@@ -214,5 +217,34 @@ namespace TestProject
                 HashSet<Recipe> recipes = bll.GetRecipesByDietary(dietaryId, dietaryName);
             });
         }
+
+        [TestMethod] // have DietaryRestrictions, but doesn't have IngredientRestrictions 
+        public void GetRecipesByDietary_IngredientRestricionsNullOrEmpty_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int dietaryId = 1111;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByDietary(dietaryId, null);
+            });
+        }
+
+        [TestMethod] // have DietaryRestrictions and IngredientRestrictions, but doesn't have RecipeIngredients
+        public void GetRecipesByDietary_RecipIngredientsNullOrEmpty_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int dietaryId = 2222;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                HashSet<Recipe> recipes = bll.GetRecipesByDietary(dietaryId, null);
+            });
+        }
+        #endregion
     }
 }
