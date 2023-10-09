@@ -1,4 +1,5 @@
-﻿using UnitTestingA1Base.Models;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using UnitTestingA1Base.Models;
 
 namespace UnitTestingA1Base.Data
 {
@@ -135,6 +136,35 @@ namespace UnitTestingA1Base.Data
                 recipes = _appStorage.Recipes
                     .Where(r => recipeIngredients.Any(rI => rI.RecipeId == r.Id))
                     .ToHashSet();
+
+                if (recipes == null || recipes.Count == 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(recipes));
+                }
+            }
+
+            return recipes;
+        }
+
+        public HashSet<Recipe> GetRecipes(int? id, string? name)
+        {
+            HashSet<Recipe> recipes = new HashSet<Recipe>();
+            if (id == null && name == null)
+            {
+                throw new ArgumentNullException($"Both {nameof(id)} and {nameof(name)} are null.");
+            }
+            else if (id != null && String.IsNullOrEmpty(name))
+            {
+                recipes = _appStorage.Recipes.Where(r => r.Id == id).ToHashSet();
+
+                if (recipes == null || recipes.Count == 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(recipes));
+                }
+            }
+            else if (id == null && !String.IsNullOrEmpty(name))
+            {
+                recipes = _appStorage.Recipes.Where(r => r.Name.Contains(name)).ToHashSet();
 
                 if (recipes == null || recipes.Count == 0)
                 {

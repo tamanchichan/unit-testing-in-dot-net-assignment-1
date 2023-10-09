@@ -90,9 +90,30 @@ app.MapGet("/recipes/byDiet", (int? id, string? name) =>
 ///<summary>
 ///Returns a HashSet of all recipes by either Name or Primary Key. 
 /// </summary>
-app.MapGet("/recipes", (string name, int id) =>
+app.MapGet("/recipes", (int? id, string? name) =>
 {
+    try
+    {
+        HashSet<Recipe> recipes = bll.GetRecipes(id, name);
 
+        return Results.Ok(recipes);
+    }
+    catch (ArgumentNullException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (ArgumentOutOfRangeException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (Exception ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
 });
 
 ///<summary>
