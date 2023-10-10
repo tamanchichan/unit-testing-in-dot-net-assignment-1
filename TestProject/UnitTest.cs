@@ -523,6 +523,20 @@ namespace TestProject
                 bll.GetRecipes(null, recipeName);
             });
         }
+
+        [TestMethod]
+        public void DeleteRecipe_InvalidId_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int recipeId = 0;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                bll.DeleteRecipe(recipeId, null);
+            });
+        }
         #endregion
     }
 }
