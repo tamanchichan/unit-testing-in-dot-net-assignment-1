@@ -390,6 +390,23 @@ namespace TestProject
                 bll.CreateRecipe(null);
             });
         }
+
+        [TestMethod]
+        public void CreateRecipe_RecipeAlreadyExists_ThrowsInvalidOperationException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            CreateRecipe createRecipe = new CreateRecipe()
+            {
+                Name = "Spaghetti Carbonara"
+            };
+
+            // act and assert
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                bll.CreateRecipe(createRecipe);
+            });
+        }
         #endregion
     }
 }
