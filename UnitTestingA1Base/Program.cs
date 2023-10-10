@@ -185,12 +185,32 @@ app.MapDelete("/ingredients", (int? id, string? name) =>
 /// Deletes the requested recipe from the database
 /// This should also delete the associated IngredientRecipe objects from the database
 /// </summary>
-app.MapDelete("/recipes", (int id, string name) =>
+app.MapDelete("/recipes", (int? id, string? name) =>
 {
+    try
+    {
+        bll.DeleteRecipe(id, name);
 
+        return Results.Ok();
+    }
+    catch (ArgumentNullException ex)
+    {
+        return Results.Problem(ex.Message);
+    }
+    catch (ArgumentOutOfRangeException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return Results.Problem(ex.Message);
+    }
+    catch (Exception ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
 });
 
 #endregion
-
 
 app.Run();

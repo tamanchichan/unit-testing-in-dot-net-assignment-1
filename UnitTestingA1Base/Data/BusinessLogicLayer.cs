@@ -290,5 +290,56 @@ namespace UnitTestingA1Base.Data
                 _appStorage.Ingredients.Remove(ingredient);
             }
         }
+
+        public void DeleteRecipe(int? id, string? name)
+        {
+            if (id == null && String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException($"Both {nameof(id)} and {nameof(name)} are null.");
+            }
+            else
+            {
+                HashSet<Ingredient> ingredients = new HashSet<Ingredient>();
+                HashSet<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
+                Recipe recipe = null;
+
+                if (id != null && String.IsNullOrEmpty(name))
+                {
+                    recipe = _appStorage.Recipes.FirstOrDefault(r => r.Id == id);
+
+                    if (recipe == null)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(recipe));
+                    }
+                }
+                else if (id == null && !String.IsNullOrEmpty(name))
+                {
+                    recipe = _appStorage.Recipes.FirstOrDefault(r => r.Name == name);
+
+                    if (recipe == null)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(recipe));
+                    }
+                }
+
+                recipeIngredients = _appStorage.RecipeIngredients.Where(rI => rI.RecipeId == recipe.Id).ToHashSet();
+
+                ingredients = _appStorage.Ingredients
+                    .Where(i => recipeIngredients.Any(rI => rI.IngredientId == i.Id))
+                    .ToHashSet();
+
+                _appStorage.Recipes.Remove(recipe);
+
+                foreach (RecipeIngredient recipeIngredient in recipeIngredients)
+                {
+                    _appStorage.RecipeIngredients.Remove(recipeIngredient);
+                }
+
+                foreach (Ingredient ingredient in  ingredients)
+                {
+                    _appStorage.Ingredients.Remove(ingredient);
+                }
+            }
+        }
     }
 }
