@@ -377,6 +377,19 @@ namespace TestProject
             int actualResult = recipes.Count();
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void CreateRecipe_NullParameter_ThrowsArgumentNUllException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+
+            // act and assert
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                bll.CreateRecipe(null);
+            });
+        }
         #endregion
     }
 }
