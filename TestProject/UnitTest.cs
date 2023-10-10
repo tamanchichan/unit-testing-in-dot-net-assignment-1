@@ -489,6 +489,7 @@ namespace TestProject
         }
         #endregion
 
+        #region DeleteRecipe
         [TestMethod]
         public void DeleteRecipe_ValidId_RemoveRecipeFromDatabase()
         {
@@ -505,5 +506,23 @@ namespace TestProject
                 bll.GetRecipes(recipeId, null);
             });
         }
+
+        [TestMethod]
+        public void DeleteRecipe_ValidName_RemoveRecipeFromDatabase()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            string recipeName = "Spaghetti Carbonara";
+
+            // act
+            bll.DeleteRecipe(null, recipeName);
+
+            // assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                bll.GetRecipes(null, recipeName);
+            });
+        }
+        #endregion
     }
 }
