@@ -351,7 +351,7 @@ namespace TestProject
         }
         #endregion
 
-        #region
+        #region CreateRecipe
         [TestMethod]
         public void CreateRecipe_ValidParameter_PostRecipe()
         {
@@ -407,7 +407,9 @@ namespace TestProject
                 bll.CreateRecipe(createRecipe);
             });
         }
+        #endregion
 
+        #region DeleteIngredient
         [TestMethod]
         public void DeleteIngredient_ValidId_RemovesIngredient()
         {
@@ -440,6 +442,21 @@ namespace TestProject
             {
                 bll.GetRecipesByIngredients(null, ingredientName);
             });
+        }
+
+        [TestMethod]
+        public void DeleteIngredient_InvalidId_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int ingredientId = 0;
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                bll.DeleteIngredient(ingredientId, null);
+            });
+
         }
         #endregion
     }
