@@ -551,6 +551,19 @@ namespace TestProject
                 bll.DeleteRecipe(null, recipeName);
             });
         }
+
+        [TestMethod]
+        public void DeleteRecipe_NullParameters_ThrowsArgumentNullException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+
+            // act and assert
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                bll.DeleteRecipe(null, null);
+            });
+        }
         #endregion
     }
 }
