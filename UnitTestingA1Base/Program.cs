@@ -9,8 +9,8 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 // Application Storage persists for single session
-AppStorage appStorage = new AppStorage();
-BusinessLogicLayer bll = new BusinessLogicLayer(appStorage);
+AppStorage _appStorage = new AppStorage();
+BusinessLogicLayer bll = new BusinessLogicLayer(_appStorage);
 
 #endregion
 
@@ -129,8 +129,25 @@ app.MapGet("/recipes", (int? id, string? name) =>
 /// 
 /// All IDs should be created for these objects using the returned value of the AppStorage.GeneratePrimaryKey() method
 /// </summary>
-app.MapPost("/recipes", () => {
-    //appStorage.RecipeIngredients.Add(new RecipeIngredient { RecipeId = 10, IngredientId = 1 });
+app.MapPost("/recipes", (CreateRecipe createRecipe) => {
+    try
+    {
+        bll.CreateRecipe(createRecipe);
+
+        return Results.Ok(createRecipe);
+    }
+    catch (ArgumentNullException ex)
+    {
+        return Results.Problem(ex.Message);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(ex.Message);
+    }
 });
 
 ///<summary>
@@ -140,7 +157,7 @@ app.MapPost("/recipes", () => {
 ///</summary>
 app.MapDelete("/ingredients", (int id, string name) =>
 {
-
+    
 });
 
 /// <summary>

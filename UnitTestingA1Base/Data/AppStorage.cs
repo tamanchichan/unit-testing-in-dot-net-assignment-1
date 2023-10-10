@@ -109,13 +109,6 @@ namespace UnitTestingA1Base.Data
                     Name = "Grilled Salmon",
                     Description = "Delicious grilled salmon fillet with lemon and herbs.",
                     Servings = 2
-                },
-                new Recipe
-                {
-                    Id = 13,
-                    Name = "Test Recipe",
-                    Description = "Test for catching errors",
-                    Servings = 1
                 }
             };
 
@@ -328,13 +321,6 @@ namespace UnitTestingA1Base.Data
                     RecipeId = 11,
                     Amount = 3,
                     MeasurementUnit = MeasurementUnit.Milliletres
-                },
-                new RecipeIngredient
-                {
-                    IngredientId = 10,
-                    RecipeId = 13,
-                    Amount = 10,
-                    MeasurementUnit = MeasurementUnit.Grams
                 },
                 new RecipeIngredient // catch null/empty Recipe
                 {

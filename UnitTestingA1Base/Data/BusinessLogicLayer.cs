@@ -35,7 +35,7 @@ namespace UnitTestingA1Base.Data
                 }
                 else if (id == null && !String.IsNullOrEmpty(name))
                 {
-                    ingredient = _appStorage.Ingredients.FirstOrDefault(i => i.Name == name);
+                    ingredient = _appStorage.Ingredients.FirstOrDefault(i => i.Name.Contains(name));
 
                     if (ingredient == null)
                     {
@@ -44,7 +44,7 @@ namespace UnitTestingA1Base.Data
                 }
                 else
                 {
-                    ingredient = _appStorage.Ingredients.FirstOrDefault(i => i.Id == id && i.Name == name);
+                    ingredient = _appStorage.Ingredients.FirstOrDefault(i => i.Id == id && i.Name.Contains(name));
 
                     if (ingredient == null)
                     {
@@ -98,7 +98,7 @@ namespace UnitTestingA1Base.Data
                 }
                 else if (id == null & !String.IsNullOrEmpty(name))
                 {
-                    dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Name == name);
+                    dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Name.Contains(name));
 
                     if (dietaryRestriction == null)
                     {
@@ -107,7 +107,7 @@ namespace UnitTestingA1Base.Data
                 }
                 else
                 {
-                    dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Id == id && dR.Name == name);
+                    dietaryRestriction = _appStorage.DietaryRestrictions.FirstOrDefault(dR => dR.Id == id && dR.Name.Contains(name));
 
                     if (dietaryRestriction == null)
                     {
@@ -182,6 +182,57 @@ namespace UnitTestingA1Base.Data
             }
 
             return recipes;
+        }
+
+        public void CreateRecipe(CreateRecipe? createRecipe)
+        {
+            if (createRecipe == null)
+            {
+                throw new ArgumentNullException(nameof(createRecipe));
+            }
+
+            if (_appStorage.Recipes.Any(r => r.Name == createRecipe.Name))
+            {
+                throw new InvalidOperationException(nameof(createRecipe));
+            }
+
+            Recipe recipe = new Recipe()
+            {
+                Id = _appStorage.GeneratePrimaryKey(),
+                Name = createRecipe.Name,
+                Description = createRecipe.Description,
+                Servings = createRecipe.Servings
+            };
+
+            HashSet<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
+
+            foreach (Ingredient ingredient in createRecipe.Ingredients)
+            {
+                Ingredient existingIngredient = _appStorage.Ingredients.FirstOrDefault(eI => eI.Name == ingredient.Name);
+
+                if (existingIngredient == null)
+                {
+                    Ingredient newIngredient = new Ingredient()
+                    {
+                        Id = _appStorage.GeneratePrimaryKey(),
+                        Name = ingredient.Name
+                    };
+
+                    _appStorage.Ingredients.Add(newIngredient);
+                    recipeIngredients.Add(new RecipeIngredient { RecipeId = recipe.Id, IngredientId = newIngredient.Id });
+                }
+                else
+                {
+                    recipeIngredients.Add(new RecipeIngredient { RecipeId = recipe.Id, IngredientId = existingIngredient.Id});
+                }
+            }
+
+            foreach (RecipeIngredient recipeIngredient in recipeIngredients)
+            {
+                _appStorage.RecipeIngredients.Add(recipeIngredient);
+            }
+
+            _appStorage.Recipes.Add(recipe);
         }
     }
 }
