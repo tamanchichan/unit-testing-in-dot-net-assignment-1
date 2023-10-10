@@ -157,7 +157,28 @@ app.MapPost("/recipes", (CreateRecipe createRecipe) => {
 ///</summary>
 app.MapDelete("/ingredients", (int? id, string? name) =>
 {
-    
+    try
+    {
+        bll.DeleteIngredient(id, name);
+
+        return Results.Ok();
+    }
+    catch (ArgumentNullException ex)
+    {
+        return Results.Problem(ex.Message);
+    }
+    catch (ArgumentOutOfRangeException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return Results.Problem(ex.Message);
+    }
+    catch (Exception ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
 });
 
 /// <summary>

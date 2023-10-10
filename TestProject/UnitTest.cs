@@ -473,6 +473,20 @@ namespace TestProject
             });
 
         }
+
+        [TestMethod]
+        public void DeleteIngredient_MultipleRecipes_ThrowsInvalidOperationException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int ingredientId = 6;
+
+            // act and assert
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                bll.DeleteIngredient(ingredientId, null);
+            });
+        }
         #endregion
     }
 }
