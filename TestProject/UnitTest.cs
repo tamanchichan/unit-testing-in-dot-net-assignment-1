@@ -458,6 +458,21 @@ namespace TestProject
             });
 
         }
+
+        [TestMethod]
+        public void DeleteIngredient_InvalidName_ThrowsArgumentOutOfRangeException()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            string ingredientName = "Invalid Name";
+
+            // act and assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                bll.DeleteIngredient(null, ingredientName);
+            });
+
+        }
         #endregion
     }
 }
