@@ -123,7 +123,7 @@ app.MapGet("/recipes", (int? id, string? name) =>
 /// 
 /// If a Recipe with the same name as the new Recipe already exists, an InvalidOperation exception should be thrown.
 /// 
-/// If an Ingredient with the same name as an existing Ingredient is provided, it should not add that ingredient to storage.
+/// If an Ingredient with the sa    me name as an existing Ingredient is provided, it should not add that ingredient to storage.
 /// 
 /// The method should add all Recipes and (new) ingredients to the database. It should create RecipeIngredient objects and add them to the database to represent their relationship. Remember to use the IDs of any preexisting ingredients rather than new IDs.
 /// 

@@ -6,6 +6,6 @@
         public string Description { get; set; }
         public int Servings { get; set; }
 
-        public List<Ingredient>? Ingredients { get; set; }
+        public List<Ingredient>? Ingredients { get; set; } = new List<Ingredient>();
     }
 }

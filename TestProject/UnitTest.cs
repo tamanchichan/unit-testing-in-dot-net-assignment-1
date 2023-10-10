@@ -350,5 +350,33 @@ namespace TestProject
             });
         }
         #endregion
+
+        #region
+        [TestMethod]
+        public void CreateRecipe_ValidParameter_PostRecipe()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            
+            CreateRecipe createRecipe = new CreateRecipe()
+            {
+                Name = "Test Recipe",
+                Description = "Post recipe",
+                Servings = 1,
+                Ingredients = { new Ingredient() { Name = "Pineapple" } }
+            };
+
+            string ingredientName = "Pineapple";
+
+            // act
+            bll.CreateRecipe(createRecipe);
+            HashSet<Recipe> recipes = bll.GetRecipesByIngredients(null, ingredientName);
+
+            // assert
+            int expectedResult = 1;
+            int actualResult = recipes.Count();
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+        #endregion
     }
 }
