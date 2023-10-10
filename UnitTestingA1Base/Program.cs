@@ -155,7 +155,7 @@ app.MapPost("/recipes", (CreateRecipe createRecipe) => {
 /// If there is only one Recipe using that Ingredient, then the Recipe is also deleted, as well as all associated RecipeIngredients
 /// If there are multiple Recipes using that ingredient, a Forbidden response code should be provided with an appropriate message
 ///</summary>
-app.MapDelete("/ingredients", (int id, string name) =>
+app.MapDelete("/ingredients", (int? id, string? name) =>
 {
     
 });

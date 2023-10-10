@@ -234,5 +234,61 @@ namespace UnitTestingA1Base.Data
 
             _appStorage.Recipes.Add(recipe);
         }
+
+        public void DeleteIngredient(int? id, string? name)
+        {
+            Ingredient ingredient = null;
+            HashSet<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
+            HashSet<Recipe> recipes = new HashSet<Recipe>();
+            Recipe recipe = null;
+
+            if (id == null && String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException($"Both {nameof(id)} and {nameof(name)} are null.");
+            }
+            else
+            {
+                if (id != null && String.IsNullOrEmpty(name))
+                {
+                    ingredient = _appStorage.Ingredients.FirstOrDefault(i => i.Id == id);
+
+                    if (ingredient == null)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(ingredient));
+                    }
+                }
+                else if (id == null && !String.IsNullOrEmpty(name))
+                {
+                    ingredient = _appStorage.Ingredients.FirstOrDefault(i => i.Name == name);
+
+                    if (ingredient == null)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(ingredient));
+                    }
+                }
+
+                recipeIngredients = _appStorage.RecipeIngredients.Where(rI => rI.IngredientId == ingredient.Id).ToHashSet();
+
+                recipes = _appStorage.Recipes
+                    .Where(r => recipeIngredients.Any(rI => rI.RecipeId == r.Id))
+                    .ToHashSet();
+
+                if (recipes.Count > 1)
+                {
+                    throw new InvalidOperationException("Ingredient is used in multiple recipes and cannot be deleted");
+                }
+
+                recipe = _appStorage.Recipes.FirstOrDefault(r => recipeIngredients.Any(rI => rI.RecipeId == r.Id));
+
+                _appStorage.Recipes.Remove(recipe);
+                
+                foreach (RecipeIngredient recipeIngredient in recipeIngredients)
+                {
+                    _appStorage.RecipeIngredients.Remove(recipeIngredient);
+                }
+
+                _appStorage.Ingredients.Remove(ingredient);
+            }
+        }
     }
 }

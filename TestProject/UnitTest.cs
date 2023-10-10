@@ -407,6 +407,23 @@ namespace TestProject
                 bll.CreateRecipe(createRecipe);
             });
         }
+
+        [TestMethod]
+        public void DeleteIngredient_ValidId_RemovesIngredient()
+        {
+            // arrange
+            BusinessLogicLayer bll = _initializeBusinessLogic();
+            int ingredientId = 1;
+
+            // act
+            bll.DeleteIngredient(ingredientId, null);
+
+            // assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+            {
+                bll.GetRecipesByIngredients(ingredientId, null);
+            });
+        }
         #endregion
     }
 }
